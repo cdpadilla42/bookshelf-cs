@@ -1,3 +1,6 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
 namespace bookshelf_cs;
 
 public class WeatherForecast
@@ -9,4 +12,18 @@ public class WeatherForecast
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 
     public string? Summary { get; set; }
+}
+
+public sealed class DateOnlyJsonConverter : JsonConverter<DateOnly>
+{
+    public override DateOnly Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        return DateOnly.FromDateTime(reader.GetDateTime());
+    }
+
+    public override void Write(Utf8JsonWriter writer, DateOnly value, JsonSerializerOptions options)
+    {
+        var isoDate = value.ToString("O");
+        writer.WriteStringValue(isoDate);
+    }
 }

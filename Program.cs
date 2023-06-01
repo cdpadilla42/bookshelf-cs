@@ -1,8 +1,17 @@
+using bookshelf_cs;
+using static bookshelf_cs.DateOnlyJsonConverter;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+                });
 
 var app = builder.Build();
 
