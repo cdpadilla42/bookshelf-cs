@@ -10,7 +10,7 @@
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
     <SpaProxyServerUrl>https://localhost:44458</SpaProxyServerUrl>
     <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
-    <RootNamespace>bookshelf_cs</RootNamespace>
+    <RootNamespace>Bookshelf_cs</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 

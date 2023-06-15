@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace bookshelf_cs;
+namespace Bookshelf_cs;
 
 public class WeatherForecast
 {

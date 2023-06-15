@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace bookshelf_cs.Controllers;
+namespace Bookshelf_cs.Controllers;
 
 [ApiController]
 [Route("[controller]")]
