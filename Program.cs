@@ -1,5 +1,4 @@
 using bookshelf_cs;
-using static bookshelf_cs.DateOnlyJsonConverter;
 
 var builder = WebApplication.CreateBuilder(args);
 
