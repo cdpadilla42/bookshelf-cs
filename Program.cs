@@ -1,4 +1,7 @@
 using Bookshelf_cs;
+using dotenv.net;
+
+DotEnv.Load(options: new DotEnvOptions(ignoreExceptions: false));
 
 var builder = WebApplication.CreateBuilder(args);
 
