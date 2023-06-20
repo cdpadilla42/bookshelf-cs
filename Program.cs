@@ -1,7 +1,6 @@
 using Bookshelf_cs;
-using dotenv.net;
-
-DotEnv.Load(options: new DotEnvOptions(ignoreExceptions: false));
+using Microsoft.EntityFrameworkCore;
+using BulkyBookWebDotNet6MVC.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +13,11 @@ builder.Services.AddControllers()
                 {
                     options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
                 });
+
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("DefaultConnection")
+    ));
+
 
 var app = builder.Build();
 
