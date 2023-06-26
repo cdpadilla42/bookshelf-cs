@@ -2,6 +2,7 @@ import { Counter } from './components/Counter';
 import { FetchData } from './components/FetchData';
 import { Authors } from './components/Authors';
 import { Home } from './components/Home';
+import { EditAuthors } from './components/EditAuthors';
 
 const AppRoutes = [
   {
@@ -17,8 +18,12 @@ const AppRoutes = [
     element: <FetchData />,
   },
   {
-    path: '/authors',
+    path: '/page/authors',
     element: <Authors />,
+  },
+  {
+    path: '/edit/authors',
+    element: <EditAuthors />,
   },
 ];
 
