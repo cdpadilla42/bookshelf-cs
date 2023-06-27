@@ -1,6 +1,6 @@
 using Bookshelf_cs;
 using Microsoft.EntityFrameworkCore;
-using BulkyBookWebDotNet6MVC.Data;
+using Bookshelf_cs.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

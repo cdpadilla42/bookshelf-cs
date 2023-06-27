@@ -1,7 +1,7 @@
-using BulkyBookWebDotNet6MVC.Models;
+using Bookshelf_cs.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BulkyBookWebDotNet6MVC.Data
+namespace Bookshelf_cs.Data
 {
   public class ApplicationDbContext : DbContext
 	{

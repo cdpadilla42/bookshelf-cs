@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 namespace Bookshelf_cs.Controllers;
-using BulkyBookWebDotNet6MVC.Data;
-using BulkyBookWebDotNet6MVC.Models;
+using Bookshelf_cs.Data;
+using Bookshelf_cs.Models;
 
 
 [ApiController]
@@ -23,5 +23,26 @@ public class AuthorController : ControllerBase
     {
       IEnumerable<Author> authorList = _db.Authors;
       return authorList;
+    }
+
+    // Post: /<controller>/
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Post(Author obj)
+    {
+        if(obj.Name == obj.DisplayOrder.ToString())
+        {
+            ModelState.AddModelError("name", "Display order cannot match the name.");
+        }
+
+        if (ModelState.IsValid)
+        {
+            _db.Authors.Add(obj);
+            _db.SaveChanges();
+            TempData["success"] = "Category created successfully";
+            return RedirectToAction("Index");
+        }
+
+        return View(obj);
     }
 }

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace BulkyBookWebDotNet6MVC.Models
+namespace Bookshelf_cs.Models
 {
   public class Author
 	{
