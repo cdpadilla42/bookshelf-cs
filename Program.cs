@@ -18,6 +18,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 
+ConfigurationManager configuration = builder.Configuration;
+
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+builder.Logging.AddConfiguration(configuration.GetSection("Logging"));
 
 var app = builder.Build();
 
