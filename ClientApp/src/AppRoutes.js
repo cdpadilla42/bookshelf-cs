@@ -1,8 +1,9 @@
 import { Counter } from './components/Counter';
 import { FetchData } from './components/FetchData';
-import { Authors } from './components/Authors';
+import Authors from './components/Authors';
 import { Home } from './components/Home';
-import { EditAuthors } from './components/EditAuthors';
+import EditAuthors from './components/EditAuthors';
+import EditBook from './components/EditBook';
 
 const AppRoutes = [
   {
@@ -24,6 +25,14 @@ const AppRoutes = [
   {
     path: '/edit/authors',
     element: <EditAuthors />,
+  },
+  {
+    path: '/edit/books',
+    element: <EditBook />,
+  },
+  {
+    path: '/edit/books/:id',
+    element: <EditBook />,
   },
 ];
 
