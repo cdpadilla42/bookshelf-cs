@@ -25,24 +25,48 @@ public class AuthorController : ControllerBase
       return authorList;
     }
 
+    // GET: /<controller>/
+     [HttpGet("edit/{id}")]
+    public IActionResult Edit(int? id)
+    {
+        if (id == null || id == 0)
+        {
+            return NotFound();
+        }
+
+        var AuthorFromDb = _db.Authors.Find(id);
+        //var CategoryFromDb = _db.CategorySet.FirstOrDefault(u=>u.Id == id);
+        //var CategoryFromDb = _db.CategorySet.SingleOrDefault(u=>u.Id == id);
+
+        if (AuthorFromDb == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(AuthorFromDb);
+    }
+
     // Post: /<controller>/
     [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult Post(Author obj)
+    public ActionResult<Author> Post([FromBody] Author obj)
     {
-        if(obj.Name == obj.DisplayOrder.ToString())
-        {
-            ModelState.AddModelError("name", "Display order cannot match the name.");
-        }
+      _logger.LogInformation(1001, "Author passed");
+      _logger.LogWarning(1001, obj.ToString());
 
-        if (ModelState.IsValid)
-        {
-            _db.Authors.Add(obj);
-            _db.SaveChanges();
-            TempData["success"] = "Category created successfully";
-            return RedirectToAction("Index");
-        }
+      try
+      {
+        _db.Authors.Add(obj);
+        _db.SaveChanges();
+        return Ok(obj);
+      }
+      catch (System.Exception)
+      {
+        // throw System.Exception();
+        return Ok();
+      }
 
-        return View(obj);
+      System.Console.WriteLine();
+
+
     }
 }

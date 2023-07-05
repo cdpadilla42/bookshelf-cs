@@ -1,10 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const EditAuthors = () => {
   const [name, setName] = useState();
 
-  const handleSubmit = () => {
+  useEffect(() => {
+    populateData();
+  }, []);
+
+  const populateData = async () => {
+    const id = 1;
+    const response = await fetch(`author/edit/${id}`);
+    console.log(response);
+    const data = await response.json();
+    setName(data.name);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     console.log(name);
+    const response = await fetch('author', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ Name: name }),
+    });
+    console.log(response);
+    const data = await response.json();
+    console.log(data);
+  };
+
+  const handleChange = (e) => {
+    setName(e.currentTarget.value);
   };
 
   return (
@@ -14,12 +42,11 @@ const EditAuthors = () => {
           Name
         </label>
         <input
-          type="email"
+          type="text"
           class="form-control"
-          id="exampleInputEmail1"
-          aria-describedby="emailHelp"
+          id="name"
           value={name}
-          onChange={setName}
+          onChange={handleChange}
         />
       </div>
 
