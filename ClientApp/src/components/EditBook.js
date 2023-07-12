@@ -2,10 +2,24 @@ import React, { useState } from 'react';
 import { Formik } from 'formik';
 import { useParams } from 'react-router-dom';
 import classNames from 'classnames';
+import { useQuery } from '@tanstack/react-query';
 
 const EditBook = () => {
   const { id } = useParams();
   console.log(id);
+
+  const fetchBook = async ({ queryKey }) => {
+    const [, { id }] = queryKey;
+    const response = await fetch(`book/edit/${id}`);
+    const data = await response.json();
+    return data;
+  };
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['books', { id }],
+    queryFn: fetchBook,
+  });
+  console.log(data);
 
   const handleBookFormSubmit = async (values) => {
     const response = await fetch('book', {
@@ -23,12 +37,7 @@ const EditBook = () => {
 
   return (
     <Formik
-      initialValues={{
-        name: 'Hobbit',
-        authorID: '2',
-        summary: 'Good',
-        rating: '5',
-      }}
+      initialValues={{}}
       validate={(values) => {
         const errors = {};
         // Validate Errors

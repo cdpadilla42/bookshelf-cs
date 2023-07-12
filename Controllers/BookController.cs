@@ -18,8 +18,19 @@ public class BookController : ControllerBase
         _db = db;
     }
 
-    [HttpGet]
-    public IEnumerable<Book> Get()
+    [HttpGet("edit/{id}")]
+    public IActionResult GetBooks(int? id)
+    {
+      if (id == null || id == 0)
+      {
+          return NotFound();
+      }
+      Book BookRes = _db.Books.Find(id);
+      return Ok(BookRes);
+    }
+
+        [HttpGet]
+    public IEnumerable<Book> GetBook()
     {
       IEnumerable<Book> BookList = _db.Books;
       return BookList;

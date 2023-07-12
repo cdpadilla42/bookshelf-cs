@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   createColumnHelper,
   flexRender,
@@ -16,6 +16,13 @@ const Books = () => {
     return data;
   };
 
+  const { data, isLoading } = useQuery({
+    queryKey: ['books'],
+    queryFn: fetchBooks,
+  });
+
+  console.log(data);
+
   const columns = [
     columnHelper.accessor('name', {
       cell: (info) => info.getValue(),
@@ -29,13 +36,11 @@ const Books = () => {
       header: () => 'Created At',
       cell: (info) => info.renderValue()?.toLocaleString(),
     }),
+    columnHelper.accessor('id', {
+      header: () => 'Edit',
+      cell: (info) => <a href={`/edit/books/${info.renderValue()}`}>Edit</a>,
+    }),
   ];
-
-  const { data, isLoading } = useQuery({
-    queryKey: ['books'],
-    queryFn: fetchBooks,
-  });
-  console.log(data);
 
   const table = useReactTable({
     data,
