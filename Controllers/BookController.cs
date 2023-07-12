@@ -60,7 +60,7 @@ public class BookController : ControllerBase
       catch (System.Exception)
       {
         // throw System.Exception();
-        return Ok();
+        return Ok(obj);
       }
 
       System.Console.WriteLine();

@@ -4,6 +4,7 @@ import Authors from './components/Authors';
 import { Home } from './components/Home';
 import EditAuthors from './components/EditAuthors';
 import EditBook from './components/EditBook';
+import Books from './components/Books.tsx';
 
 const AppRoutes = [
   {
@@ -21,6 +22,10 @@ const AppRoutes = [
   {
     path: '/page/authors',
     element: <Authors />,
+  },
+  {
+    path: '/page/books',
+    element: <Books />,
   },
   {
     path: '/edit/authors',

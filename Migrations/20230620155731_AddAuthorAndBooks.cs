@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Bookshelf_cs.Migrations
 {
-    /// <inheritdoc />
-    public partial class AddAuthorAndBooks : Migration
+  /// <inheritdoc />
+  public partial class AddAuthorAndBooks : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,7 +34,6 @@ namespace Bookshelf_cs.Migrations
                     AuthorID = table.Column<int>(type: "int", nullable: false),
                     GenreID = table.Column<int>(type: "int", nullable: false),
                     Summary = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AudioBook = table.Column<bool>(type: "bit", nullable: false),
                     Rating = table.Column<bool>(type: "bit", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),

@@ -24,13 +24,13 @@ namespace Bookshelf_cs.Migrations
 
             modelBuilder.Entity("Bookshelf_cs.Models.Author", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
 
-                    b.Property<DateTime>("CreatedDateTime")
+                    b.Property<DateTime?>("CreatedDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
@@ -50,9 +50,6 @@ namespace Bookshelf_cs.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("AudioBook")
-                        .HasColumnType("bit");
-
                     b.Property<int>("AuthorID")
                         .HasColumnType("int");
 
@@ -69,8 +66,8 @@ namespace Bookshelf_cs.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Rating")
-                        .HasColumnType("bit");
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");

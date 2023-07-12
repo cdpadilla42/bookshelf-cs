@@ -12,8 +12,9 @@ namespace Bookshelf_cs.Models
 		public int AuthorID { get; set; }
 		public int GenreID { get; set; }
 		public string? Summary { get; set; }
-    public bool AudioBook { get; set; }
-    public bool Rating { get; set; }
+		// [Column(TypeName = "BIT")]
+    // public bool? AudioBook { get; set; }
+    public int Rating { get; set; }
     public string? Status { get; set; }
     public string? Image { get; set; }
 		public DateTime CreatedDateTime { get; set; } = DateTime.Now;

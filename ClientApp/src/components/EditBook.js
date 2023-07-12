@@ -24,10 +24,10 @@ const EditBook = () => {
   return (
     <Formik
       initialValues={{
-        name: '',
-        authorID: '',
-        summary: '',
-        rating: '',
+        name: 'Hobbit',
+        authorID: '2',
+        summary: 'Good',
+        rating: '5',
       }}
       validate={(values) => {
         const errors = {};
@@ -40,9 +40,17 @@ const EditBook = () => {
       onSubmit={(values, { setSubmitting }) => {
         (async () => {
           // TODO Test... Then add React Query
-          alert(JSON.stringify(values, null, 2));
-          const res = await handleBookFormSubmit(values);
-          console.log(res.json());
+          values.rating = parseInt(values.rating);
+          try {
+            const res = await handleBookFormSubmit(values);
+            if (res && res.status === 200) {
+              alert('book added');
+              // Push history to new book page and or the table...
+            }
+          } catch (e) {
+            console.error(e);
+            // Toast - something went wrong
+          }
           setSubmitting(false);
         })();
       }}
