@@ -9,7 +9,7 @@ const target = env.ASPNETCORE_HTTPS_PORT
 
 console.log(target);
 
-const context = ['/weatherforecast', '/author', '/book'];
+const context = ['/weatherforecast', '/author', '/book', 'book/edit'];
 
 const onError = (err, req, resp, target) => {
   console.error(`${err.message}`);

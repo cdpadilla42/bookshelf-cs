@@ -18,8 +18,15 @@ public class BookController : ControllerBase
         _db = db;
     }
 
+    [HttpGet]
+    public IEnumerable<Book> GetBooks()
+    {
+      IEnumerable<Book> BookList = _db.Books;
+      return BookList;
+    }
+
     [HttpGet("edit/{id}")]
-    public IActionResult GetBooks(int? id)
+    public IActionResult GetBook(int? id)
     {
       if (id == null || id == 0)
       {
@@ -29,30 +36,22 @@ public class BookController : ControllerBase
       return Ok(BookRes);
     }
 
-        [HttpGet]
-    public IEnumerable<Book> GetBook()
-    {
-      IEnumerable<Book> BookList = _db.Books;
-      return BookList;
-    }
-
     // GET: /<controller>/
-     [HttpGet("edit/{id}")]
-    public IActionResult Edit(int? id)
+    [HttpPost("edit/{id}")]
+    public IActionResult Edit(Book obj)
     {
-        if (id == null || id == 0)
-        {
-            return NotFound();
-        }
+      if (ModelState.IsValid)
+      {
+          _db.Books.Update(obj);
+          _db.SaveChanges();
+          return Ok(obj);
+      }
 
-        Book BookFromDb = _db.Books.Find(id);
+      var errors = ModelState.Select(x => x.Value.Errors)
+        .Where(y=>y.Count>0)
+        .ToList();
 
-        if (BookFromDb == null)
-        {
-            return NotFound();
-        }
-
-        return Ok(BookFromDb);
+      return BadRequest(errors);
     }
 
     // Post: /<controller>/

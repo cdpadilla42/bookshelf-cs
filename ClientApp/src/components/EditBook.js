@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Formik } from 'formik';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import { useQuery } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 
 const EditBook = () => {
   const { id } = useParams();
-  console.log(id);
+  const navigate = useNavigate();
 
   const fetchBook = async ({ queryKey }) => {
     const [, { id }] = queryKey;
@@ -15,14 +16,8 @@ const EditBook = () => {
     return data;
   };
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['books', { id }],
-    queryFn: fetchBook,
-  });
-  console.log(data);
-
   const handleBookFormSubmit = async (values) => {
-    const response = await fetch('book', {
+    const response = await fetch(`book/edit/${id}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -30,14 +25,25 @@ const EditBook = () => {
       },
       body: JSON.stringify(values),
     });
-    console.log(response);
-    const data = await response.json();
-    console.log(data);
+    return response;
   };
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['books', { id }],
+    queryFn: fetchBook,
+  });
+
+  if (isLoading) {
+    return (
+      <p>
+        <em>Loading...</em>
+      </p>
+    );
+  }
 
   return (
     <Formik
-      initialValues={{}}
+      initialValues={data}
       validate={(values) => {
         const errors = {};
         // Validate Errors
@@ -48,17 +54,19 @@ const EditBook = () => {
       }}
       onSubmit={(values, { setSubmitting }) => {
         (async () => {
-          // TODO Test... Then add React Query
           values.rating = parseInt(values.rating);
           try {
             const res = await handleBookFormSubmit(values);
+            console.log('mutation:', res);
             if (res && res.status === 200) {
-              alert('book added');
               // Push history to new book page and or the table...
+              toast.success('Book updated!');
+              navigate('/page/books');
             }
           } catch (e) {
             console.error(e);
             // Toast - something went wrong
+            toast.warn('Something went wrong!');
           }
           setSubmitting(false);
         })();

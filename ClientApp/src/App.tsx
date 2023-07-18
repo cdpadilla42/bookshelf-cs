@@ -4,6 +4,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AppRoutes from './AppRoutes';
 import { Layout } from './components/Layout';
 import './custom.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   const queryClient = new QueryClient();
@@ -18,6 +20,7 @@ const App = () => {
           })}
         </Routes>
       </Layout>
+      <ToastContainer />
     </QueryClientProvider>
   );
 };

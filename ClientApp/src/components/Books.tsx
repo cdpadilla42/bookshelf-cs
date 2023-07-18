@@ -38,7 +38,9 @@ const Books = () => {
     }),
     columnHelper.accessor('id', {
       header: () => 'Edit',
+      // TODO Handle delete
       cell: (info) => <a href={`/edit/books/${info.renderValue()}`}>Edit</a>,
+      // cell: (info) => <a href={`/edit/books/${info.renderValue()}`}>Edit</a> <a href={`/edit/books/${info.renderValue()}`}>Delete</a>,
     }),
   ];
 
