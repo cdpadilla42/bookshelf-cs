@@ -25,6 +25,26 @@ public class BookController : ControllerBase
       return BookList;
     }
 
+    // Post: /<controller>/
+    [HttpPost]
+    public ActionResult<Book> CreateBook([FromBody] Book obj)
+    {
+      _logger.LogInformation(1001, "Book passed");
+      _logger.LogWarning(1001, obj.ToString());
+      if (ModelState.IsValid)
+      {
+        _db.Books.Add(obj);
+        _db.SaveChanges();
+        return Ok(obj);
+      }
+
+      var errors = ModelState.Select(x => x.Value.Errors)
+        .Where(y=>y.Count>0)
+        .ToList();
+
+      return BadRequest(errors);
+    }
+
     [HttpGet("edit/{id}")]
     public IActionResult GetBook(int? id)
     {
@@ -36,9 +56,8 @@ public class BookController : ControllerBase
       return Ok(BookRes);
     }
 
-    // GET: /<controller>/
     [HttpPost("edit/{id}")]
-    public IActionResult Edit(Book obj)
+    public IActionResult EditBook(Book obj)
     {
       if (ModelState.IsValid)
       {
@@ -54,27 +73,19 @@ public class BookController : ControllerBase
       return BadRequest(errors);
     }
 
-    // Post: /<controller>/
-    [HttpPost]
-    public ActionResult<Book> Post([FromBody] Book obj)
+    [HttpPost("delete/{id}")]
+    public IActionResult DeleteBook(int? id)
     {
-      _logger.LogInformation(1001, "Book passed");
-      _logger.LogWarning(1001, obj.ToString());
-
-      try
+      if (id == null || id == 0)
       {
-        _db.Books.Add(obj);
-        _db.SaveChanges();
-        return Ok(obj);
-      }
-      catch (System.Exception)
-      {
-        // throw System.Exception();
-        return Ok(obj);
+          return NotFound(id);
       }
 
-      System.Console.WriteLine();
+      var BookFromDB = _db.Books.Find(id);
 
+      _db.Books.Remove(BookFromDB);
+      _db.SaveChanges();
 
+     return Ok(BookFromDB);
     }
 }

@@ -21,6 +21,23 @@ const Books = () => {
     queryFn: fetchBooks,
   });
 
+  const handleDeleteBook = async (id) => {
+    // eslint-disable-next-line no-restricted-globals
+    const confirmed = confirm(
+      `Are you sure you want to delete book of id ${id}?`
+    );
+    if (!confirmed) return;
+    const response = await fetch(`book/delete/${id}`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log(response);
+    return response;
+  };
+
   console.log(data);
 
   const columns = [
@@ -36,11 +53,17 @@ const Books = () => {
       header: () => 'Created At',
       cell: (info) => info.renderValue()?.toLocaleString(),
     }),
-    columnHelper.accessor('id', {
-      header: () => 'Edit',
-      // TODO Handle delete
-      cell: (info) => <a href={`/edit/books/${info.renderValue()}`}>Edit</a>,
-      // cell: (info) => <a href={`/edit/books/${info.renderValue()}`}>Edit</a> <a href={`/edit/books/${info.renderValue()}`}>Delete</a>,
+    columnHelper.display({
+      id: 'edit',
+      cell: (props) => (
+        <a href={`/edit/books/${props.row.original.id}`}>Edit</a>
+      ),
+    }),
+    columnHelper.display({
+      id: 'delete',
+      cell: (props) => (
+        <a onClick={() => handleDeleteBook(props.row.original.id)}>Delete</a>
+      ),
     }),
   ];
 

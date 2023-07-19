@@ -11,13 +11,18 @@ const EditBook = () => {
 
   const fetchBook = async ({ queryKey }) => {
     const [, { id }] = queryKey;
+    if (!id) return null;
     const response = await fetch(`book/edit/${id}`);
     const data = await response.json();
     return data;
   };
 
   const handleBookFormSubmit = async (values) => {
-    const response = await fetch(`book/edit/${id}`, {
+    let path = 'book';
+    if (id) {
+      path = `book/edit/${id}`;
+    }
+    const response = await fetch(path, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -33,6 +38,13 @@ const EditBook = () => {
     queryFn: fetchBook,
   });
 
+  const initialValues = data || {
+    name: '',
+    authorID: '',
+    summary: '',
+    rating: '',
+  };
+
   if (isLoading) {
     return (
       <p>
@@ -43,7 +55,7 @@ const EditBook = () => {
 
   return (
     <Formik
-      initialValues={data}
+      initialValues={initialValues}
       validate={(values) => {
         const errors = {};
         // Validate Errors
