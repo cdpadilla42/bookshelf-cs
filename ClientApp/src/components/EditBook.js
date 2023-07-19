@@ -67,18 +67,14 @@ const EditBook = () => {
       onSubmit={(values, { setSubmitting }) => {
         (async () => {
           values.rating = parseInt(values.rating);
-          try {
-            const res = await handleBookFormSubmit(values);
-            console.log('mutation:', res);
-            if (res && res.status === 200) {
-              // Push history to new book page and or the table...
-              toast.success('Book updated!');
-              navigate('/page/books');
-            }
-          } catch (e) {
-            console.error(e);
-            // Toast - something went wrong
-            toast.warn('Something went wrong!');
+          const res = await handleBookFormSubmit(values);
+          const data = await res.json();
+          if (res && res.status === 200) {
+            // Push history to new book page and or the table...
+            toast.success('Book updated!');
+            navigate('/page/books');
+          } else {
+            toast.warn(`Something went wrong! ${data.title}`);
           }
           setSubmitting(false);
         })();
