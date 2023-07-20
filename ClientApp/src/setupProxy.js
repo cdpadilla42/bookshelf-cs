@@ -7,16 +7,12 @@ const target = env.ASPNETCORE_HTTPS_PORT
   ? env.ASPNETCORE_URLS.split(';')[0]
   : 'http://localhost:51512';
 
-console.log(target);
-
-const context = ['/weatherforecast', '/author', '/book', 'book/edit'];
-
 const onError = (err, req, resp, target) => {
   console.error(`${err.message}`);
 };
 
 module.exports = function (app) {
-  const appProxy = createProxyMiddleware(context, {
+  const appProxy = createProxyMiddleware('/api', {
     target: target,
     // Handle errors to prevent the proxy middleware from crashing when
     // the ASP NET Core webserver is unavailable

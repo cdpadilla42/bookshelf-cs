@@ -5,7 +5,7 @@ using Bookshelf_cs.Models;
 
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class BookController : ControllerBase
 {
 
