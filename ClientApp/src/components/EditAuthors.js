@@ -18,7 +18,7 @@ const EditAuthors = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(name);
-    const response = await fetch('author', {
+    const response = await fetch('api/author', {
       method: 'POST',
       headers: {
         Accept: 'application/json',

@@ -5,7 +5,7 @@ const Authors = () => {
   const [loading, setLoading] = useState(true);
 
   const populateWeatherData = async () => {
-    const response = await fetch('author');
+    const response = await fetch('api/author');
     const data = await response.json();
     setLoading(false);
     setAuthors(data);

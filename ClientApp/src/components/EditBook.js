@@ -12,7 +12,7 @@ const EditBook = () => {
   const fetchBook = async ({ queryKey }) => {
     const [, { id }] = queryKey;
     if (!id) return null;
-    const response = await fetch(`book/GetBook/${id}`);
+    const response = await fetch(`api/book/${id}`);
     const data = await response.json();
     return data;
   };
@@ -20,7 +20,7 @@ const EditBook = () => {
   const handleBookFormSubmit = async (values) => {
     let path = 'book';
     if (id) {
-      path = `book/edit/${id}`;
+      path = `api/book/edit/${id}`;
     }
     const response = await fetch(path, {
       method: 'POST',
@@ -36,6 +36,7 @@ const EditBook = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['books', { id }],
     queryFn: fetchBook,
+    enabled: false,
   });
 
   const initialValues = data || {
