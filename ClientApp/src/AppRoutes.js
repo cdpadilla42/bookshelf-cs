@@ -5,6 +5,7 @@ import { Home } from './components/Home';
 import EditAuthors from './components/EditAuthors';
 import EditBook from './components/EditBook';
 import Books from './components/Books.tsx';
+import Book from './components/Book.tsx';
 
 const AppRoutes = [
   {
@@ -20,23 +21,27 @@ const AppRoutes = [
     element: <FetchData />,
   },
   {
-    path: '/page/authors',
+    path: '/admin/authors',
     element: <Authors />,
   },
   {
-    path: '/page/books',
+    path: '/admin/books',
     element: <Books />,
   },
   {
-    path: '/edit/authors',
+    path: '/admin/book/:id',
+    element: <Book />,
+  },
+  {
+    path: 'admin/authors/edit',
     element: <EditAuthors />,
   },
   {
-    path: '/edit/books',
+    path: '/admin/books',
     element: <EditBook />,
   },
   {
-    path: '/edit/books/:id',
+    path: '/admin/book/edit/:id',
     element: <EditBook />,
   },
 ];

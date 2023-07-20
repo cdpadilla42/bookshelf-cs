@@ -72,7 +72,7 @@ const EditBook = () => {
           if (res && res.status === 200) {
             // Push history to new book page and or the table...
             toast.success('Book updated!');
-            navigate('/page/books');
+            navigate('/admin/books');
           } else {
             toast.warn(`Something went wrong! ${data.title}`);
           }
@@ -177,7 +177,11 @@ const EditBook = () => {
               <div className="invalid-feedback">{errors.rating}</div>
             )}
           </div>
-          <button type="submit" disabled={isSubmitting} class="btn btn-primary">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="btn btn-primary"
+          >
             Submit
           </button>
         </form>

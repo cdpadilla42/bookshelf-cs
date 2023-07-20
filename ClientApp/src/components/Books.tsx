@@ -56,7 +56,7 @@ const Books = () => {
     columnHelper.display({
       id: 'edit',
       cell: (props) => (
-        <a href={`/edit/books/${props.row.original.id}`}>Edit</a>
+        <a href={`/admin/book/edit/${props.row.original.id}`}>Edit</a>
       ),
     }),
     columnHelper.display({
