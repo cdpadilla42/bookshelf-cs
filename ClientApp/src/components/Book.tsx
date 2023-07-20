@@ -20,7 +20,7 @@ const Book = () => {
   const fetchBook = async ({ queryKey }) => {
     const [, { id }] = queryKey;
     if (!id) return null;
-    const response = await fetch(`book/edit/${id}`);
+    const response = await fetch(`api/book/edit/${id}`);
     const data = await response.json();
     return data;
   };

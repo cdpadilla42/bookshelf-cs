@@ -11,7 +11,7 @@ import { Book } from '../types';
 const Books = () => {
   const columnHelper = createColumnHelper<Book>();
   const fetchBooks = async () => {
-    const response = await fetch('book');
+    const response = await fetch('api/book');
     const data = await response.json();
     return data;
   };
@@ -27,7 +27,7 @@ const Books = () => {
       `Are you sure you want to delete book of id ${id}?`
     );
     if (!confirmed) return;
-    const response = await fetch(`book/delete/${id}`, {
+    const response = await fetch(`api/book/delete/${id}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -47,7 +47,7 @@ const Books = () => {
     }),
     columnHelper.accessor('authorID', {
       cell: (info) => <i>{info.getValue()}</i>,
-      header: () => <span>Last Name</span>,
+      header: () => <span>Author ID</span>,
     }),
     columnHelper.accessor('createdDateTime', {
       header: () => 'Created At',
@@ -108,7 +108,20 @@ const Books = () => {
   return (
     <div>
       <h1 id="tableLabel">Books</h1>
-      <p>This page demonstrates fetching data from the server.</p>
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <p>This page demonstrates fetching data from the server.</p>
+          </div>
+          <div className="col-2">
+            <a href={`/admin/book/edit`}>
+              <button type="submit" className="btn btn-primary">
+                Add Book
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
       <div>
         {isLoading ? (
           <p>
