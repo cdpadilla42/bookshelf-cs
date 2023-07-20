@@ -45,7 +45,7 @@ public class BookController : ControllerBase
       return BadRequest(errors);
     }
 
-    [HttpGet("edit/{id}")]
+    [HttpGet("{id}")]
     public IActionResult GetBook(int? id)
     {
       if (id == null || id == 0)
