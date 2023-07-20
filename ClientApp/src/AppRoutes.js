@@ -33,15 +33,15 @@ const AppRoutes = [
     element: <Book />,
   },
   {
+    path: '/admin/book/edit/:id',
+    element: <EditBook />,
+  },
+  {
     path: 'admin/authors/edit',
     element: <EditAuthors />,
   },
   {
     path: '/admin/books',
-    element: <EditBook />,
-  },
-  {
-    path: '/admin/book/edit/:id',
     element: <EditBook />,
   },
 ];
