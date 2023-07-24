@@ -15,12 +15,11 @@ interface MyFormValues {
 
 const Book = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
 
   const fetchBook = async ({ queryKey }) => {
     const [, { id }] = queryKey;
     if (!id) return null;
-    const response = await fetch(`api/book/edit/${id}`);
+    const response = await fetch(`api/book/${id}`);
     const data = await response.json();
     return data;
   };
@@ -52,25 +51,25 @@ const Book = () => {
         <div className="row py-4">
           <div className="column">
             <h6>Name</h6>
-            <span>{SAMPLEDATA.name}</span>
+            <span>{data.name}</span>
           </div>
         </div>
         <div className="row py-4">
           <div className="column">
             <h6>AuthorID</h6>
-            <span>{SAMPLEDATA.authorID}</span>
+            <span>{data.authorID}</span>
           </div>
         </div>
         <div className="row py-4">
           <div className="column">
             <h6>Summary</h6>
-            <span>{SAMPLEDATA.summary}</span>
+            <span>{data.summary}</span>
           </div>
         </div>
         <div className="row py-4">
           <div className="column">
             <h6>Rating</h6>
-            <span>{SAMPLEDATA.rating}</span>
+            <span>{data.rating}</span>
           </div>
         </div>
       </div>

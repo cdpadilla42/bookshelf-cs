@@ -21,10 +21,6 @@ const AppRoutes = [
     element: <FetchData />,
   },
   {
-    path: '/admin/authors',
-    element: <Authors />,
-  },
-  {
     path: '/admin/books',
     element: <Books />,
   },
@@ -37,12 +33,12 @@ const AppRoutes = [
     element: <EditBook />,
   },
   {
-    path: 'admin/authors/edit',
+    path: '/admin/authors/edit',
     element: <EditAuthors />,
   },
   {
-    path: '/admin/books',
-    element: <EditBook />,
+    path: '/admin/authors',
+    element: <Authors />,
   },
 ];
 

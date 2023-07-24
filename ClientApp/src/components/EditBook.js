@@ -18,7 +18,7 @@ const EditBook = () => {
   };
 
   const handleBookFormSubmit = async (values) => {
-    let path = 'book';
+    let path = 'api/book';
     if (id) {
       path = `api/book/edit/${id}`;
     }
@@ -33,10 +33,12 @@ const EditBook = () => {
     return response;
   };
 
+  const queryEnabled = id !== 0 && !!id;
+
   const { data, isLoading } = useQuery({
     queryKey: ['books', { id }],
     queryFn: fetchBook,
-    enabled: false,
+    enabled: queryEnabled,
   });
 
   const initialValues = data || {
@@ -46,7 +48,7 @@ const EditBook = () => {
     rating: '',
   };
 
-  if (isLoading) {
+  if (queryEnabled && isLoading) {
     return (
       <p>
         <em>Loading...</em>
@@ -71,7 +73,14 @@ const EditBook = () => {
           (async () => {
             values.rating = parseInt(values.rating);
             const res = await handleBookFormSubmit(values);
-            const data = await res.json();
+            let data;
+            try {
+              data = await res.json();
+            } catch (e) {
+              toast.warn(`Something went wrong!`);
+              setSubmitting(false);
+            }
+
             if (res && res.status === 200) {
               // Push history to new book page and or the table...
               toast.success('Book updated!');
