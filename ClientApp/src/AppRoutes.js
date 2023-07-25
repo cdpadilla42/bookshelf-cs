@@ -3,7 +3,7 @@ import { FetchData } from './components/FetchData';
 import Authors from './components/Authors';
 import { Home } from './components/Home';
 import EditAuthors from './components/EditAuthors';
-import EditBook from './components/EditBook';
+import EditBook from './components/EditBook.tsx';
 import Books from './components/Books.tsx';
 import Book from './components/Book.tsx';
 

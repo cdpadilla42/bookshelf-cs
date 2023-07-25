@@ -1,12 +1,13 @@
 import React from 'react';
-import { Formik } from 'formik';
+import { Formik, FormikErrors } from 'formik';
 import { useParams, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
+import { BookSubmitObject } from '../types';
 
 const EditBook = () => {
-  const { id } = useParams();
+  const { id = '' } = useParams();
   const navigate = useNavigate();
 
   const fetchBook = async ({ queryKey }) => {
@@ -33,7 +34,7 @@ const EditBook = () => {
     return response;
   };
 
-  const queryEnabled = id !== 0 && !!id;
+  const queryEnabled = !!id && parseInt(id) !== 0;
 
   const { data, isLoading } = useQuery({
     queryKey: ['books', { id }],
@@ -61,8 +62,8 @@ const EditBook = () => {
       <h1>Edit Book</h1>
       <Formik
         initialValues={initialValues}
-        validate={(values) => {
-          const errors = {};
+        validate={(values: BookSubmitObject) => {
+          const errors: FormikErrors<BookSubmitObject> = {};
           // Validate Errors
           if (values.rating > 5 || values.rating < 1) {
             errors.rating = 'Must be within 1 and 5';
@@ -71,7 +72,6 @@ const EditBook = () => {
         }}
         onSubmit={(values, { setSubmitting }) => {
           (async () => {
-            values.rating = parseInt(values.rating);
             const res = await handleBookFormSubmit(values);
             let data;
             try {
@@ -104,7 +104,7 @@ const EditBook = () => {
         }) => (
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
-              <label for="name" class="form-label">
+              <label htmlFor="name" className="form-label">
                 Name
               </label>
               <input
@@ -124,11 +124,11 @@ const EditBook = () => {
               )}
             </div>
             <div className="mb-3">
-              <label for="authorID" class="form-label">
+              <label htmlFor="authorID" className="form-label">
                 Author
               </label>
               <input
-                type="text"
+                type="number"
                 className={classNames([
                   'form-control',
                   {
@@ -146,7 +146,7 @@ const EditBook = () => {
               )}
             </div>
             <div className="mb-3">
-              <label for="summary" class="form-label">
+              <label htmlFor="summary" className="form-label">
                 Summary
               </label>
               <input
@@ -168,7 +168,7 @@ const EditBook = () => {
               )}
             </div>
             <div className="mb-3">
-              <label for="rating" class="form-label">
+              <label htmlFor="rating" className="form-label">
                 Rating
               </label>
               <input
