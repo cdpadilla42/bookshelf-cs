@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 namespace Bookshelf_cs.Controllers;
 using Bookshelf_cs.Data;
 using Bookshelf_cs.Models;
@@ -18,6 +19,7 @@ public class BookController : ControllerBase
         _db = db;
     }
 
+    [EnableCors("_chrisdpadillaOrigin")]
     [HttpGet]
     public IEnumerable<Book> GetBooks()
     {
@@ -45,6 +47,7 @@ public class BookController : ControllerBase
       return BadRequest(errors);
     }
 
+    [EnableCors("_chrisdpadillaOrigin")]
     [HttpGet("{id}")]
     public IActionResult GetBook(int? id)
     {

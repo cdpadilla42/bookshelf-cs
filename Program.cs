@@ -18,6 +18,20 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "_chrisdpadillaOrigin",
+        policy  =>
+        {
+            policy.WithOrigins(
+                "https://www.chrisdpadilla.com/",
+                "http://www.chrisdpadilla.com/",
+                "http://chrisdpadilla.com/",
+                "https://chrisdpadilla.com/"
+            );
+     });
+});
+
 ConfigurationManager configuration = builder.Configuration;
 
 builder.Logging.ClearProviders();
